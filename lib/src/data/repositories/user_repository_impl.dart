@@ -1,25 +1,32 @@
-import '../../domain/entities/user.dart';
+import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/user_repository.dart';
 import '../data_sources/local_data_source.dart';
 import '../data_sources/remote_data_source.dart';
-
+import '../models/user_model.dart';
+// Import statements for RemoteDataSource and LocalDataSource
 
 class UserRepositoryImpl implements UserRepository {
   final RemoteDataSource remoteDataSource;
   final LocalDataSource localDataSource;
 
-  UserRepositoryImpl({required this.remoteDataSource, required this.localDataSource});
+  UserRepositoryImpl({
+    required this.remoteDataSource, 
+    required this.localDataSource,
+  });
 
   @override
-  Future<List<User>> getUsers() async {
-    // Example strategy: Try to get users from the local data source first
-    List<User> users = await localDataSource.getUsers();
-    if (users.isEmpty) {
-      // If no users are found locally, fetch from the remote data source
-      users = await remoteDataSource.getUsers();
-      // Optionally, cache the remote users locally
-      // localDataSource.cacheUsers(users);
-    }
-    return users;
+  Future<List<UserEntity>> getUsers() async {
+    List<UserModel> models = await remoteDataSource.getUsers();
+    // Convert UserModel instances to UserEntity instances
+    List<UserEntity> entities = models.map((model) => _mapUserModelToEntity(model)).toList();
+    return entities;
+  }
+
+  // Helper method for conversion
+  UserEntity _mapUserModelToEntity(UserModel model) {
+    return UserEntity(
+      id: model.id,
+      name: model.name,
+    );
   }
 }

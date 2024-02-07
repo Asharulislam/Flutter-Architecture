@@ -31,5 +31,5 @@ void init() {
   sl.registerLazySingleton(() => GetUsers(sl<UserRepository>()));
 
   // Bloc
-  sl.registerFactory(() => UserBloc(getUsers: sl<GetUsers>()));
+  sl.registerFactory(() => UserBloc(getUsers: sl<GetUsers>())..add(GetUsersEvent()));
 }

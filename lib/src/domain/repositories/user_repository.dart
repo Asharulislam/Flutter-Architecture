@@ -1,5 +1,5 @@
-import '../entities/user.dart';
+import '../entities/user_entity.dart';
 
 abstract class UserRepository {
-  Future<List<User>> getUsers();
+  Future<List<UserEntity>> getUsers();
 }

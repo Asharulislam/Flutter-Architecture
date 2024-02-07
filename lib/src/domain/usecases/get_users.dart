@@ -1,4 +1,4 @@
-import '../entities/user.dart';
+import '../entities/user_entity.dart';
 import '../repositories/user_repository.dart';
 
 class GetUsers {
@@ -6,7 +6,7 @@ class GetUsers {
 
   GetUsers(this.repository);
 
-  Future<List<User>> call() async {
+  Future<List<UserEntity>> call() async {
     return await repository.getUsers();
   }
 }

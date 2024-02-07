@@ -7,6 +7,7 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Users'),
@@ -32,7 +33,7 @@ class UserScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.read<UserBloc>().add(GetUsersEvent());
+          // context.read<UserBloc>().add(GetUsersEvent());
         },
         child: const Icon(Icons.refresh),
       ),

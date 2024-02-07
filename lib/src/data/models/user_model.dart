@@ -1,9 +1,27 @@
-import '../../domain/entities/user.dart';
+import 'dart:convert';
 
-class UserModel extends User {
-  UserModel({required int id, required String name}) : super(id: id, name: name);
+List<UserModel> userModelFromJson(String str) =>
+    List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(id: json['id'], name: json['name']);
-  }
+String userModelToJson(List<UserModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class UserModel {
+  UserModel({
+    required this.id,
+    required this.name,
+  });
+
+  int id;
+  String name;
+
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+        id: json["id"],
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+      };
 }
