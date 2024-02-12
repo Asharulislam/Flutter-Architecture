@@ -6,3 +6,4 @@ A new Flutter clean architectue with bloc pattern.
 
 This project is a starting point for a Flutter application.
 
+![Alt text](assests/demo.gif)
