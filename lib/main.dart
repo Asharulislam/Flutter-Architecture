@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture/src/presentation/screens/user_screen.dart';
+import 'package:flutter_architecture/src/presentation/screens/all_products_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'src/bloc/user_bloc.dart';
+
+import 'src/bloc/all_products/all_products_bloc.dart';
 import 'src/service_locator.dart' as di;
 
 void main() {
@@ -16,8 +17,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: BlocProvider(
-        create: (_) => di.sl<UserBloc>(),
-        child: const UserScreen(),
+        create: (_) => di.sl<AllProductsBloc>(),
+        child: const AllProductsScreen(),
       ),
     );
   }

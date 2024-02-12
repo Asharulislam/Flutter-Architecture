@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'package:flutter_architecture/src/data/models/all_products_model.dart';
 import 'package:http/http.dart' as http;
-import '../models/user_model.dart';
+
 
 abstract class RemoteDataSource {
-  Future<List<UserModel>> getUsers();
+  Future<AllProductsModel> getAllProducts();
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -12,14 +13,16 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   RemoteDataSourceImpl({required this.client});
 
   @override
-  Future<List<UserModel>> getUsers() async {
+  Future<AllProductsModel> getAllProducts() async {
     final response = await client
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
-    if (response.statusCode == 200) {
-      List<dynamic> usersJson = json.decode(response.body);
-      return usersJson.map((json) => UserModel.fromJson(json)).toList();
+        .get(Uri.parse('https://dummyjson.com/products?limit=10'));
+   if (response.statusCode == 200) {
+      // Directly decode the response body to a JSON object
+      Map<String, dynamic> allProductsJson = json.decode(response.body);
+      // Create an instance of AllProductsModel from the JSON object
+      return AllProductsModel.fromJson(allProductsJson);
     } else {
-      throw Exception('Failed to load users');
+      throw Exception('Failed to load products');
     }
   }
 }
